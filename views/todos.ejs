@@ -41,20 +41,21 @@
         </div>
         </div>
         <% } %>
-
 <div class="row pb-5">
-  <div class="col-md">
-    <h1 class="my-3">Todos</h1>
-    <div class="list-group mb-3">
-      <% incomplete.forEach( el=> { %>
-      <div class="list-group-item todoItem incomplete" data-id='<%=el._id%>'>
-        <label class="w-75" class="not">
-          <input class="form-check-input me-1" type="checkbox" value="" autocomplete="off">
-          <%=el.todo %>
-        </label>
-        <div class='priority <%=priorities[el.priority] %>' data-priority="<%=el.priority %>"> <i class="fa-solid fa-flag" title="Change priority"></i>
-        </div>
-        <div class='del'> <i class="fa-solid fa-trash" title="Delete todo"></i> </div>
+    <div class="col-sm">
+        <h1 class="my-3">Todos</h1>
+        <div class="list-group mb-3">
+    <% incomplete.forEach( el=> { %>
+        <div class="list-group-item todoItem incomplete" data-id='<%=el._id%>'>
+            <label class="w-75" class="not">
+                <input class="form-check-input me-1" type="checkbox" value="" autocomplete="off">
+                <%=el.todo %>
+            </label>
+            <div class='priority <%=priorities[el.priority] %>' data-priority="<%=el.priority %>"> <i class="fa-solid fa-flag"
+                    title="Change priority"></i>
+            </div>
+            <div class='del'> <i class="fa-solid fa-trash" title="Delete todo"></i> </div>
+
 
                 <div class="tags mt-1">
 <div class="addTag">
@@ -75,40 +76,37 @@
                         </div>
                         <%}) %>
 
-          <div class="tag">
-            <i class="fa-solid fa-circle-xmark" title="Delete tag"></i>
-            <%=tag%>
-          </div>
-          <%}) %>
+                </div>
 
         </div>
-      </div>
 
-      <% }) %>
-    </div>
+        <% }) %>
+            </div>
 
 
     <h3>
-
         You have <%= incomplete.length %>
                 <%= incomplete.length===1 ? "thing" : "things" %>
                     <% if (filterTags.length) {%>with the selected
                         <%= complete.length + incomplete.length===1 ? "tag" : "tags" %>
                             <%}%> left to do.
     </h3>
-  </div>
-  <div class="col-sm">
-    <h1 class="my-3">Completed</h1>
+            </div>
+            <div class="col-sm">
+                <h1 class="my-3">Completed</h1>
 
 
-    <div class="list-group mb-3">
-      <% complete.forEach( el=> { %>
-      <div class="list-group-item todoItem complete" data-id='<%=el._id%>'>
-        <label class="completed">
-          <input class="form-check-input me-1" type="checkbox" value="" checked autocomplete="off">
-          <%=el.todo %>
-        </label>
-      </div>
+                <div class="list-group mb-3">
+                    <% complete.forEach( el=> { %>
+                        <div class="list-group-item todoItem complete" data-id='<%=el._id%>'>
+                            <label class="completed">
+                                <input class="form-check-input me-1" type="checkbox" value="" checked autocomplete="off">
+                                <%=el.todo %>
+                            </label>
+                        </div>
+
+                        <% }) %>
+                            </div>
 
                 <h3>
                     You have completed <%= complete.length %>
@@ -120,12 +118,4 @@
 
     </div>
     </div>
-
-    <h3>
-      You have completed <%= complete.length %>
-      <%= complete.length===1 ? "thing" : "things" %>.
-    </h3>
-
-  </div>
-</div>
 <%- include('partials/footer.ejs') %>
