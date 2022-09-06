@@ -55,9 +55,15 @@ module.exports = {
 		const groupItem = await Group.findOne({ _id: id });
 		res.render('group/create.ejs', { group: groupItem, user: req.user })
 	},
-	deleteGroup: (req, res) => {
-		res.redirect('/groups')
+	// delete one group
+	deleteGroup: async (req, res) => {
+		try{
+			await Group.findOneAndDelete({_id:req.body.groupIdFromJSFile})
+		}catch(err){
+			console.log(err)
+		}
 	},
+
 	editMmebers: async (req, res) => {
 		/* GET : look for a group the database and load it in the page for edition */
 		const { id } = req.params;

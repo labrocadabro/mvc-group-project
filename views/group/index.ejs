@@ -38,11 +38,17 @@
                         <% if (isAdmin) { %>
                             <a href="/groups/editGroup/<%= el._id; %>" title="Edit <%= el.name; %>"><i
                                         class="fas fa-edit"
-                                        title="Delete <%= el.name; %>"></i></i>
+                                        title="Edit the group <%= el.name; %>"></i></i>
                             </a>
 
-                            <i class="fas fa-trash"></i>
-                        <% } else { %>
+                            <i class="fas fa-trash text-danger"
+                               data-bs-toggle="modal"
+                               data-bs-target="#myModal"
+                               data-bs-id="<%= el._id %>"
+                               data-bs-groupName="<%= el.name %>">
+                            </i>
+
+                    <% } else { %>
                             <i class="fas fa-edit d-none"></i></a>
                         <% } %>
                     </td>
@@ -68,13 +74,32 @@
 
 </div>
 
-<script>
-  const icoEdit = document.querySelectorAll('.fa-edit');
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-  icoEdit.forEach((el) => {
-    el.stopPropagation();
-  })
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Confirmation</h4>
 
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
 
-</script>
-<%- include('../partials/footer.ejs', {script: null}) %>
+            <!-- Modal body -->
+            <div class="modal-body">
+                Do you really want to delete this group?
+                It will be impossible for you to restore it after delete.
+            </div>
+            <div class="d-none myGroupId"></div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal">Confirm Delete</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs', {script: '/js/groupIndex.js'}) %>
