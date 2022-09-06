@@ -19,25 +19,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type:String,
     require: true,
-  },
-  role: {
-    type: Number,
-    /* 0: admin, 1: Moderator, 2: user, 3: guest */
-    enum: [0, 1, 2, 3],
-    default: 3
-  }
-  /*
-  totalAttempt: {
-    type: Number,
-    default: 0,
-    validate: {
-      validator: function(value) {
-        return value === 3;
-      },
-      message: 'You have already done three attempts.'
-    }
-  }
-  */
+	},
 }, { collection: 'users'})
 
 

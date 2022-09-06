@@ -6,7 +6,9 @@
     crossorigin="anonymous"></script>
 <script src="https://unpkg.com/validator@latest/validator.min.js" defer></script>
 <script src="/js/bare.js" async defer></script>
-<script src="/js/main.js" async defer></script>
+<% if (script) {%>
+	<script src="<%=script%>" async defer></script>
+	<%}%>
 </body>
 
 </html>

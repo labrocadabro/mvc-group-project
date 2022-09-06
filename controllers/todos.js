@@ -14,7 +14,7 @@ module.exports = {
                 }) :
                 await Todo.find({ userId: req.user._id });
             const complete = todoItems.filter(todo => todo.completed);
-            const incomplete = todoItems.filter(todo => !todo.completed)
+					const incomplete = todoItems.filter(todo => !todo.completed);
             res.render('todos.ejs', { complete, incomplete, user: req.user, filterTags: tags })
         }catch(err){
             console.log(err)
@@ -22,22 +22,19 @@ module.exports = {
     },
     createTodo: async (req, res)=>{
         try{
-            await Todo.create({ todo: req.body.todoItem, completed: false, userId: req.user._id })
+					await Todo.create({
+						todo: req.body.todoItem,
+						completed: false,
+						userId: req.user._id,
+						tags: req.body.tags,
+						groupId: req.body.groupId
+					})
             console.log('Todo has been added!')
-            res.redirect('/todos')
+					res.json('Todo created')
         }catch(err){
             console.log(err)
         }
-    },
-    createTodoWithTags: async (req, res) => {
-        try {
-            await Todo.create({ todo: req.body.todoItem, completed: false, userId: req.user._id, tags: req.body.tags })
-            console.log('Todo has been added!')
-            res.json('Todo with tags created')
-        } catch (err) {
-            console.log(err)
-        }
-    },
+	},
     markComplete: async (req, res)=>{
         try{
             const todo = await Todo.findOneAndUpdate({ _id: req.body.todoIdFromJSFile }, {

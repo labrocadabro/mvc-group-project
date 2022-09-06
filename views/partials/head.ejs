@@ -42,19 +42,13 @@
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">Menu</a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="/groups/createGroup">Create a group</a></li>
-                                <li><a class="dropdown-item" href="/groups">My groups</a></li>
-                                <li><a class="dropdown-item" href="/todos">My todos</a></li>
-                                <% if (isAdmin) { %>
-                                    <li>
-                                        <hr class="dropdown-divider" />Manage
-                                    </li>
-                                    <li><a class="dropdown-item" href="/admin/manageGroup">Groups</a></li>
-                                    <li><a class="dropdown-item" href="/admin/manageTodo">Tasks</a></li>
-                                    <% } %>
+																<li><a class="dropdown-item" href="/groups">My groups</a></li>
+																<li><a class="dropdown-item" href="/groups/createGroup">Create a group</a></li>
+																<li><a class="dropdown-item" href="/todos">My todos</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="/logout"><i class="fa-solid fa-power-off"></i>&nbsp;<%= currentUser.username %></a></li>
+												<li class="nav-item"><a class="nav-link" href="/logout"><i class="fa-solid fa-power-off"></i>&nbsp;<%= user.username %>
+															</a></li>
                         <% } else { %>
                             <li class="nav-item"><a class="nav-link" href="/login" title="Sign In">Sign In</a></li>
                             <li class="nav-item"><a class="nav-link" href="/signup" titlz="Sign Up">Sign Up</a></li>
