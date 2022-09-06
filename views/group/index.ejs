@@ -1,11 +1,10 @@
 <%- include('../partials/head.ejs', { title: 'My Groups' }) %>
-
 <div class="row pb-5">
   <h1><%= adminPage ? 'Group management' : 'Groups' %></h1>
   <% if (groupNumber > 0) { %>
 	<p class="my-3 groupTitle">Group<%= groupNumber===1 ? 's' : '' %> ( <%= groupNumber %> )</p>
 
-<table class="table">
+<table class="table" id="groupsTable">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -16,6 +15,7 @@
 	</thead>
 	<tbody>
 		<% groupItems.forEach( el=> { %>
+			<% const isAdmin=el.admin.email===user.email %>
 			<tr>
 				<td>
 					<%= el.name %>
@@ -24,12 +24,14 @@
 					<%= el.createdAt.toLocaleDateString('en-US', {'month': 'short' , 'day' : 'numeric' , 'year' : 'numeric' }) %>
 				</td>
 				<td>
-					<%= el.groupAdmin[0].username %>
+					<%= el.admin.username %>
 				</td>
 				<td>
-					<i class="fa-solid fa-users" title="Edit Group Members"></i>
-					<% if (isAdmin || el.groupAdmin[0].email===currentUser.email) { %>
-						<a href="/groups/editGroup/<%= el._id %>" title="Edit <%= el.name %>"><i class="fas fa-edit"></i></a>
+					<a href="/groups/todos/<%=el._id %>"><i class="fa-regular fa-square-check" title="Todos"></i></a>
+					<a href="/groups/members/<%=el._id %>"><i class="fa-solid fa-users" title="Group Members"></i></a>
+					<% if (isAdmin) { %>
+						<a href="/groups/editGroup/<%= el._id %>" title="Edit <%= el.name %>"><i class="fas fa-edit"
+								title="Delete <%= el.name %>"></i></i></a>
 
 	<i class="fas fa-trash"></i>
 	<% } else { %>
@@ -48,7 +50,7 @@
 	</table>
 
   <% } else { %>
-  <p>You have joined 0 groups. <a href="/group/createGroup" title="Create a group">Create a group</a></p>
+	<p>You have joined 0 groups. <a href="/groups/createGroup" title="Create a group">Create a group</a></p>
   <% } %>
 
 </div>
@@ -62,4 +64,4 @@
 
 
 </script>
-<%- include('../partials/footer.ejs') %>
+		<%- include('../partials/footer.ejs', {script: null}) %>

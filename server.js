@@ -2,7 +2,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const passport = require('passport');
-const LocalStrategy = require('passport-local');
 
 const bodyParser = require('body-parser')
 const session = require('express-session')
@@ -18,7 +17,6 @@ const connectDB = require('./config/database')
 const mainRoutes = require('./routes/main')
 const todoRoutes = require('./routes/todos')
 const groupRoutes = require('./routes/groups')
-const adminRoutes = require('./routes/admin')
 
 
 // Passport config
@@ -74,12 +72,8 @@ app.use(passport.session())
 
 
 app.use((req, res, next) => {
- res.locals.loggedIn = req.isAuthenticated();
-   if(res.locals.loggedIn) {
-      res.locals.isAdmin = (req.user.role === 0);
-      res.locals.currentUser = req.user;
-  }
- next();
+	res.locals.loggedIn = req.isAuthenticated();
+	next();
 });
 
 
@@ -88,7 +82,6 @@ app.use(flash())
 app.use('/', mainRoutes)
 app.use('/todos', todoRoutes)
 app.use('/groups', groupRoutes)
-app.use('/admin', adminRoutes)
 
 
 // No controller, just a static page. N

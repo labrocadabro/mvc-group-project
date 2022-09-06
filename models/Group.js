@@ -3,13 +3,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const memberSchema = new Schema({
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
-	}
-});
-
 const GroupSchema = Schema({
   name: {
     type: String,
@@ -19,7 +12,7 @@ const GroupSchema = Schema({
     type: String,
     required: true,
 	},
-  adminId: {
+	admin: {
     type: Schema.ObjectId,
      ref: 'User'
   },
@@ -28,7 +21,10 @@ const GroupSchema = Schema({
     default: Date.now
 	},
   members: {
-		type: [memberSchema]
+		type: [{
+			type: Schema.ObjectId,
+			ref: 'User'
+		}]
   }
 })
 

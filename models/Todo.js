@@ -22,12 +22,7 @@ const TodoSchema = new mongoose.Schema({
   groupId: {
     type: String,
     required: false
-  },
-  shared: {
-    type: Boolean,
-    required: true,
-    default: false
-  },
+	},
   completedBy: {
        type: String,
     required: false

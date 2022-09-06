@@ -1,0 +1,53 @@
+<%- include('../partials/head.ejs', { title: "Edit Group Members" }) %>
+
+	<% if (group.members.length - 1> 0) {%>
+		<h2>Group Members</h2>
+		<table class="table" id="membersTable">
+			<thead>
+				<tr>
+					<td>Name</td>
+					<td>Email</td>
+					<% if(user.email===group.admin.email) {%>
+						<td>Remove</td>
+						<%}%>
+				</tr>
+			</thead>
+			<tbody>
+				<tr id="adminUser">
+					<td>
+						<%=group.admin.username%>
+					</td>
+					<td>
+						<%=group.admin.email%>
+					</td>
+					<% if(user.email===group.admin.email) {%>
+						<td>Admin</td>
+						<%}%>
+				</tr>
+				<% group.members.filter(m=> m.email !=group.admin.email).forEach(m=> {%>
+					<tr>
+						<td>
+							<%=m.username%>
+						</td>
+						<td>
+							<%=m.email%>
+						</td>
+						<% if(user.email===group.admin.email) {%>
+							<td><i class="fas fa-trash" title="Remove member from group"></i></td>
+							<%}%>
+					</tr>
+					<%})%>
+			</tbody>
+		</table>
+		<%}%>
+			<% if(user.email===group.admin.email) {%>
+				<form id="addMember" action="/groups/addMember" method='POST'>
+					<label for="memberEmail">Add Member</label>
+					<input class="form-control" type="email" placeholder="Email address" name='memberEmail' id="memberEmail"
+						autocomplete="off">
+					<input type="hidden" name="id" value="<%=group._id%>" />
+					<button type=" submit" class="btn btn-primary">Add</button>
+				</form>
+				<%}%>
+
+					<%- include('../partials/footer.ejs', {script: null}) %>
