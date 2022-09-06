@@ -10,6 +10,7 @@ module.exports = {
 							members: req.user._id
 						}
 					}).populate('admin');
+
 					console.log(groupItems)
 					res.render('group/index.ejs', { groupItems, user: req.user, groupNumber: groupItems.length, adminPage: req.originalUrl.includes('manageGroup') })
         } catch (err) {

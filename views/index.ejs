@@ -1,12 +1,12 @@
 <%- include('partials/head.ejs', {title:"Home"}) %>
-<% if (loggedIn) {%>
-    <h1>Welcome, <%=user.username%>!</h1>
+<% if (loggedIn) { %>
+    <h1>Welcome, <%= user.username; %>!</h1>
     <a href="/todos"> Your Todo List</a>
-    <%} else {%>
+<% } else { %>
     <h1>Create Your VERY OWN Todolist!</h1>
     <a class="btn btn-primary" href="/login" title="Login"> Login</a>
     <a class="btn btn-primary" href="/signup"> Signup</a>
 
-<%}%>
+<% } %>
 
-		<%- include('partials/footer.ejs', {script: null}) %>
+<%- include('partials/footer.ejs', {script: null}) %>

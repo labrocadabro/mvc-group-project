@@ -1,57 +1,70 @@
 <%- include('../partials/head.ejs', { title: 'My Groups' }) %>
 <div class="row pb-5">
-  <h1><%= adminPage ? 'Group management' : 'Groups' %></h1>
-  <% if (groupNumber > 0) { %>
-	<p class="my-3 groupTitle">Group<%= groupNumber===1 ? 's' : '' %> ( <%= groupNumber %> )</p>
+    <h1><%= adminPage ? "Group management" : "Groups"; %></h1>
+    <% if (groupNumber > 0) { %>
+        <p class="my-3 groupTitle">Group<%= groupNumber === 1 ? "s" : ""; %> ( <%= groupNumber; %> )</p>
 
-<table class="table" id="groupsTable">
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Created</th>
-			<th>Owner</th>
-			<th>Actions</th>
-		</tr>
-	</thead>
-	<tbody>
-		<% groupItems.forEach( el=> { %>
-			<% const isAdmin=el.admin.email===user.email %>
-			<tr>
-				<td>
-					<%= el.name %>
-				</td>
-				<td>
-					<%= el.createdAt.toLocaleDateString('en-US', {'month': 'short' , 'day' : 'numeric' , 'year' : 'numeric' }) %>
-				</td>
-				<td>
-					<%= el.admin.username %>
-				</td>
-				<td>
-					<a href="/groups/todos/<%=el._id %>"><i class="fa-regular fa-square-check" title="Todos"></i></a>
-					<a href="/groups/members/<%=el._id %>"><i class="fa-solid fa-users" title="Group Members"></i></a>
-					<% if (isAdmin) { %>
-						<a href="/groups/editGroup/<%= el._id %>" title="Edit <%= el.name %>"><i class="fas fa-edit"
-								title="Delete <%= el.name %>"></i></i></a>
+        <table class="table" id="groupsTable">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Created</th>
+                <th>Owner</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% groupItems.forEach( el=> { %>
 
-	<i class="fas fa-trash"></i>
-	<% } else { %>
-		<i class="fas fa-edit d-none"></i></a>
-		<% } %>
-			</td>
-			</tr>
-			<tr>
-				<td colspan="4">
-					<strong>Description:</strong>
-					<%= el.description %>
-				</td>
-				</tr>
-				<% }) %>
-	</tbody>
-	</table>
+                <% const isAdmin = el.admin.email === user.email; %>
+                <tr>
+                    <td>
+                        <%= el.name; %>
+                    </td>
+                    <td>
+                        <%= el.createdAt.toLocaleDateString("en-US", {
+                            "month": "short",
+                            "day": "numeric",
+                            "year": "numeric",
+                        }); %>
+                    </td>
+                    <td>
+                        <%= el.admin.username; %>
+                    </td>
+                    <td>
+                        <a href="/groups/todos/<%= el._id; %>"><i class="fa-regular fa-square-check"
+                                                                  title="Todos"></i></a>
+                        <a href="/groups/members/<%= el._id; %>"><i class="fa-solid fa-users" title="Group Members"></i></a>
+                        <% if (isAdmin) { %>
+                            <a href="/groups/editGroup/<%= el._id; %>" title="Edit <%= el.name; %>"><i
+                                        class="fas fa-edit"
+                                        title="Delete <%= el.name; %>"></i></i>
+                            </a>
 
-  <% } else { %>
-	<p>You have joined 0 groups. <a href="/groups/createGroup" title="Create a group">Create a group</a></p>
-  <% } %>
+                            <i class="fas fa-trash"></i>
+                        <% } else { %>
+                            <i class="fas fa-edit d-none"></i></a>
+                        <% } %>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <details>
+                            <summary>Description:</summary>
+                            <%= el.description %>
+                        </details>
+                    </td>
+                </tr>
+            <% }); %>
+            </tbody>
+        </table>
+
+    <% } else { %>
+        <p class="groupInfo">
+            <span class="mb-3">You have joined 0 groups.</span>
+            <a class="btn btn-primary" href="/groups/createGroup" title="Create a group">Create a group</a>
+        </p>
+    <% } %>
 
 </div>
 
@@ -59,9 +72,9 @@
   const icoEdit = document.querySelectorAll('.fa-edit');
 
   icoEdit.forEach((el) => {
-      el.stopPropagation();
+    el.stopPropagation();
   })
 
 
 </script>
-		<%- include('../partials/footer.ejs', {script: null}) %>
+<%- include('../partials/footer.ejs', {script: null}) %>

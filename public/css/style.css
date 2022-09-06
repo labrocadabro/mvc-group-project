@@ -208,6 +208,14 @@ color: #3b9614;
 	font-weight: bold;
 }
 
+.groupInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.groupInfo .btn {
+    width: 200px;
+}
 
 /******************************
 ********* Members page *********

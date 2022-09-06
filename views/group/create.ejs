@@ -1,27 +1,27 @@
-  <% const isEdit = typeof(group) !== "undefined" ? true : false %>
-  <% const title = isEdit ? "Edit a group" : "Create a group" %>
+<% const isEdit = typeof (group) !== "undefined" ? true : false; %>
+<% const title = isEdit ? "Edit a group" : "Create a group"; %>
 <%- include('../partials/head.ejs', { title: title}) %>
 
 
 <section class="createGroup">
-  <form action="/groups/<%= isEdit ? 'updateGroup' : 'createGroup' %>" method="post">
-    <!-- don't show this by default -->
-    <div class="alert hidden" id="formInfo"></div>
+    <form action="/groups/<%= isEdit ? "updateGroup" : "createGroup" ;%>" method="post">
+        <!-- don't show this by default -->
+        <div class="alert hidden" id="formInfo"></div>
 
-    <%- include('../partials/forms/input.ejs', {name: 'name' , type: 'text' , label:"Group Name", value: isEdit ? group.name : "" ,
+        <%- include('../partials/forms/input.ejs', {name: 'name' , type: 'text' , label:"Group Name", value: isEdit ? group.name : "" ,
         faIcon: 'fas fa-briefcase' , placeholder: 'Group name' , parentClass: 'mb-4' }) %>
 
 
-    <%- include('../partials/forms/textarea.ejs', {name:'description',label:'Description', placeholder:"Add the group description here. The description will help users to understand the goal of the group.",
-    value: isEdit ? group.description : "" }) %>
-		<% if (isEdit) {%>
-			<input type="hidden" name="id" value="<%=group._id%>" />
-			<%}%>
+        <%- include('../partials/forms/textarea.ejs', {name:'description',label:'Description', placeholder:"Add the group description here. The description will help users to understand the goal of the group.",
+        value: isEdit ? group.description : "" }) %>
+        <% if (isEdit) { %>
+        <input type="hidden" name="id" value="<%= group._id ;%>" />
+        <% } %>
 
-    <button type="submit" class="btn btn-primary btn-large"><%= isEdit ? 'Apply change' : 'Create the group' %></button>
-  </form>
+        <button type="submit"
+                class="btn btn-primary btn-large"><%= isEdit ? "Apply change" : "Create the group" ;%></button>
+    </form>
 </section>
 
 
-
-		<%- include('../partials/footer.ejs', {script: null}) %>
+<%- include('../partials/footer.ejs', {script: null}) %>
