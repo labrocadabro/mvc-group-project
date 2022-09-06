@@ -2,45 +2,35 @@ const Group = require('../models/Group')
 
 
 module.exports = {
-    getGroups: async (req, res) => {
-
+	getGroups: async (req, res) => {
         try {
-                        const groupItems = await Group.aggregate([{
-                $lookup:
-                {
-                    from: "users",
-                    localField: "createdBy",
-                    foreignField: "_id",
-                    as: "groupAdmin"
-                }
+					const groupItems = await Group.aggregate([{
+						$lookup:
+						{
+							from: "users",
+							localField: "createdBy",
+							foreignField: "_id",
+							as: "groupAdmin"
+						}
             }])
-
-
-            res.render('group/index.ejs', { groupItems, user: JSON.parse(JSON.stringify(req.user)), groupNumber: groupItems.length, adminPage: req.originalUrl.includes('manageGroup') })
+					res.render('group/index.ejs', { groupItems, user: req.user, groupNumber: groupItems.length, adminPage: req.originalUrl.includes('manageGroup') })
         } catch (err) {
             console.log(err)
         }
     },
 
     createGroup: (req, res) => {
-        res.render('group/create.ejs', {
-            title: 'Create a group'
-
-        })
-    },
-
+		res.render('group/create.ejs')
+	},
     deleteGroup: (req, res) => {
-        res.render('index.ejs', {
-            title: 'Homepage'
-        })
+			res.redirect('/groups')
     },
-
 
     editGroup: async (req, res) => {
         /* GET : look for a group the database and load it in the page for edition */
         const { id } = req.params;
-        const groupItem = await Group.find({ _id: id });
-        res.render('group/create.ejs', { group: groupItem[0]})
+			const groupItem = await Group.findOne({ _id: id });
+			res.render('group/create.ejs', { group: groupItem })
     },
 
     addGroup: async (req, res) => {
@@ -63,16 +53,11 @@ module.exports = {
         }
     },
     updateGroup: async (req, res) => {
+			console.log(req.body)
         let obj = {
                 name: req.body.name,
-                description: req.body.description.toString(),
-                isPublic: req.body.isPublic === 'on' ? true : false
-        }
-        /* will be used only if the user is an admin */
-        if(req.user.role === 0) {
-            obj['isValidated'] = req.body.isValidated === 'on' ? true : false
-        }
-
+					description: req.body.description
+				}
         try {
             await Group.findOneAndUpdate({ _id: req.body.id }, {
                 $set: obj,
