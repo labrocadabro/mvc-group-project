@@ -28,9 +28,10 @@
     <% if (filterTags.length) { %>
         <div class="row">
         <div id="tagSummary">
-                Showing <%=complete.length + incomplete.length%> todo <%= filterTags.length===1 ? "item" : "items" %> marked
+                Showing <%=complete.length + incomplete.length%> todo <%= complete.length + incomplete.length===1 ? "item" : "items" %>
+                        marked
                         with the
-                        <%= complete.length + incomplete.length===1 ? "tag" : "tags" %>
+                        <%= filterTags.length===1 ? "tag" : "tags" %>
                             <% filterTags.forEach( tag=> { %>
                                     <% const filterParams=filterTags.filter(t=> t!=tag).join(",") %>
                                         <a href="/todos?tags=<%=filterParams%>" class="removeFilter" title="Remve tag from filter">
